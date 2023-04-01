@@ -91,7 +91,8 @@ color: white;
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(202, 202, 195)</string>
+     <string notr="true">background-color: rgb(202, 202, 195);
+</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
@@ -109,7 +110,9 @@ color: white;
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: white;</string>
+      <string notr="true">background-color: white;
+color: black;
+font-size: 25px;</string>
      </property>
      <property name="text">
       <string/>
@@ -144,7 +147,9 @@ color: white;
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: white;</string>
+      <string notr="true">background-color: white;
+font-size: 25px;
+color: black</string>
      </property>
     </widget>
    </widget>
@@ -176,7 +181,9 @@ color: white;
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: white;</string>
+      <string notr="true">background-color: white;
+font-size: 25px;
+color: black</string>
      </property>
     </widget>
    </widget>
@@ -208,7 +215,9 @@ color: white;
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: white;</string>
+      <string notr="true">background-color: white;
+font-size: 25px;
+color: black</string>
      </property>
     </widget>
    </widget>

@@ -1,11 +1,9 @@
-import Backend
-
 import sqlite3
 from hashlib import sha256
 
 class Database():
     def open_database(self):
-        self.conn = sqlite3.connect("database.db")
+        self.conn = sqlite3.connect("Database.db")
         self.cur = self.conn.cursor()
         
     def close_database(self):
@@ -32,7 +30,7 @@ class User(Database):
             success = True
         except sqlite3.IntegrityError:
             success = False
-        self.conn.close()
+        self.close_database()
         return success
     
     def validate_user(self, username, password):
@@ -54,6 +52,4 @@ class User(Database):
         return row[0][0]
     
     
-    
-    
-    
+User().create_table()
