@@ -55,7 +55,7 @@
    <property name="styleSheet">
     <string notr="true">font-size: 35px; 
 font-weight: bold;
-font-familty: Tahoma;
+font-family: Tahoma;
 color: white;
 </string>
    </property>
@@ -224,7 +224,8 @@ color: white;
    </property>
    <property name="styleSheet">
     <string notr="true">font-size: 25px; 
-font-weight: bold;font-familty: Tahoma;
+font-weight: bold;
+font-family: Tahoma;
 color: white;
 background-color:rgb(200, 200, 200)</string>
    </property>
@@ -243,7 +244,8 @@ background-color:rgb(200, 200, 200)</string>
    </property>
    <property name="styleSheet">
     <string notr="true">font-size: 25px; 
-font-weight: bold;font-familty: Tahoma;
+font-weight: bold;
+font-family: Tahoma;
 color: white;
 background-color:rgb(200, 200, 200)</string>
    </property>
