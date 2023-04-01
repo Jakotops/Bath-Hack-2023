@@ -16,6 +16,7 @@ def find_bus_locations():
 
 
 def find_bus_stop_data(bus_stop):
+    # finds info on the arriving buses to this bus stop id
     url = f"http://first.transportapi.com/v3/uk/bus/stop_timetables/{bus_stop}.json?app_id=75da7e19&app_key=8a756a1369a55907a33042def6008ec8&group=false&limit=20&live=true"
     response = requests.get(url)
     bus_data = response.json()
@@ -44,6 +45,3 @@ def findETA(bus_location, bus_stop_location):
     response = requests.get(f"https://api.mapbox.com/directions/v5/mapbox/driving/{start_lat}%2C{start_long}%3B{end_lat}%2C{end_long}?alternatives=false&geometries=geojson&overview=simplified&steps=false&access_token=pk.eyJ1Ijoiam0zMzIwIiwiYSI6ImNsZnlicWVoMzBmdW0zZW1tOHVuN3U1bngifQ.zOBybaJO3r99Ug4Cxpw55A")
     duration = response.json()["routes"][0]["duration"]
     return str(int(duration/60))+" mins"
-
-
-print(findOccupancy("0180BAC30035"))
