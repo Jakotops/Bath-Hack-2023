@@ -9,7 +9,8 @@ def find_bus_locations():
     for bus in bus_data:
         coordinates = bus["coordinates"]
         service = bus["service"]["line_name"]
-        bus_locations.append((service, coordinates))
+        heading = bus["heading"]
+        bus_locations.append((service, coordinates, heading))
 
     return bus_locations
 
