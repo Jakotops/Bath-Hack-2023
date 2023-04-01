@@ -1,6 +1,8 @@
 import sqlite3
 from hashlib import sha256
 
+
+"""Commands to open and close the database"""
 class Database():
     def open_database(self):
         self.conn = sqlite3.connect("Database.db")
@@ -13,6 +15,7 @@ class Database():
 def hash_password(password):
     return sha256(password.encode()).hexdigest()
         
+"""Commands to create and manipulate the users table"""
 class User(Database):
     def create_table(self):
         self.open_database()
