@@ -9,6 +9,7 @@ session_id = None
 
 LOGIN_INDEX = 0
 REGISTER_INDEX = 1
+MAIN_INDEX = 2
 BUS_STOP_INDEX = 3 # temporarily set to 2 for testing purposes
 
 """Displays warning messagebox to the scren
@@ -101,7 +102,13 @@ class RegisterPage(QDialog):
             message += RegisterPage.BULLET_POINT +  "Password is too short, must be at least 6 characters long\n"
             
         return message
-
+    
+class MainPage(QDialog):
+    def __init__(self):
+        super(MainPage, self).__init__()
+        loadUi(f"{UI_FILE_PATH}\MainPage.ui", self)
+        self.setWindowTitle("Main Page")
+        
         
 class LoginPage(QDialog):
     def __init__(self):
@@ -133,6 +140,7 @@ class LoginPage(QDialog):
             session_id = Backend.User().set_session_id(password)
             
             print("Logged in successfully")
+            widget.setCurrentIndex(MAIN_INDEX)
         else:
             warning_messagebox("Invalid username or password")
 
@@ -165,6 +173,7 @@ app = QApplication(sys.argv)
 widget = QtWidgets.QStackedWidget()
 widget.addWidget(LoginPage())
 widget.addWidget(RegisterPage())
+widget.addWidget(MainPage())
 widget.addWidget(BusStopPage())
 
 
