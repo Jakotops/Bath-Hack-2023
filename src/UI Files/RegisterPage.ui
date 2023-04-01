@@ -233,7 +233,7 @@ background-color:rgb(200, 200, 200)</string>
     <string>Register</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="Login_Button">
    <property name="geometry">
     <rect>
      <x>100</x>
