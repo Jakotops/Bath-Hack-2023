@@ -39,7 +39,7 @@ class RegisterPage(QDialog):
     def __init__(self):
         # load the UI file
         super(RegisterPage, self).__init__()
-        loadUi(f"{UI_FILE_PATH}\RegisterPage.ui", self)
+        loadUi(os.path.join(UI_FILE_PATH, "RegisterPage.ui"), self)
         self.setWindowTitle("Register")
         
         # set placeholder text
@@ -114,7 +114,7 @@ class MainPage(QDialog):
     def __init__(self):
         # load the UI file
         super(MainPage, self).__init__()
-        loadUi(f"{UI_FILE_PATH}\MainPage.ui", self)
+        loadUi(os.path.join(UI_FILE_PATH, "MainPage.ui"), self)
         self.setWindowTitle("Main Page")
         
         self.logout_button.clicked.connect(self.logout)
@@ -141,7 +141,7 @@ class LoginPage(QDialog):
     def __init__(self):
         # load the UI file
         super(LoginPage, self).__init__()
-        loadUi(f"{UI_FILE_PATH}\LoginPage.ui", self)
+        loadUi(os.path.join(UI_FILE_PATH, "LoginPage.ui"), self)
         self.setWindowTitle("Login")
         
         self.Username.setPlaceholderText("Username")
@@ -177,7 +177,7 @@ class BusStopPage(QDialog):
     def __init__(self):
         # load the UI file
         super(BusStopPage, self).__init__()
-        loadUi(f"{UI_FILE_PATH}\BusStopPage.ui", self)
+        loadUi(os.path.join(UI_FILE_PATH, "BusStopPage.ui"), self)
         self.setWindowTitle("Bus Stop")
         
         # Set up table
