@@ -179,6 +179,7 @@ background-color:rgb(200, 200, 200)</string>
    </property>
    <property name="styleSheet">
     <string notr="true">font-size: 25px; 
+
 font-weight: bold;
 color: white;
 background-color:rgb(200, 200, 200)</string>
