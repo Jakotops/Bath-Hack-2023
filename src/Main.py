@@ -1,7 +1,7 @@
 import os, sys, re, Backend
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets, QtCore, QtGui
-from PyQt5.QtWidgets import QDialog, QApplication, QMessageBox, QCalendarWidget, QLabel, QPushButton, QButtonGroup
+from PyQt5.QtWidgets import QDialog, QApplication, QHeaderView,  QMessageBox, QCalendarWidget, QLabel, QPushButton, QButtonGroup, QTableWidget, QTableWidgetItem
 
 UI_FILE_PATH = "UI Files" #Directory in which the UI files are stored
 
@@ -9,6 +9,7 @@ session_id = None
 
 LOGIN_INDEX = 0
 REGISTER_INDEX = 1
+BUS_STOP_INDEX = 3 # temporarily set to 2 for testing purposes
 
 """Displays warning messagebox to the scren
     @param title title of window
@@ -134,7 +135,29 @@ class LoginPage(QDialog):
             print("Logged in successfully")
         else:
             warning_messagebox("Invalid username or password")
+
+     
+class BusStopPage(QDialog):
+    def __init__(self):
+        super(BusStopPage, self).__init__()
+        loadUi(f"{UI_FILE_PATH}\BusStopPage.ui", self)
+        self.setWindowTitle("Bus Stop")
         
+        self.table = self.findChild(QTableWidget, "Table")
+        self.table.setColumnCount(1)
+        self.table.setHorizontalHeaderLabels(["Our Predicted Arrival Time", "Timetabled Arrival Time"])
+        self.table.setEditTriggers(QTableWidget.NoEditTriggers)
+        self.table.verticalHeader().setVisible(False)
+        font = QtGui.QFont()
+        font.setBold(True)
+        self.table.horizontalHeader().setFont(font)
+        header = self.table.horizontalHeader()
+        header.setSectionResizeMode(QHeaderView.Stretch)
+        
+        self.Back_Button.clicked.connect(self.go_back)
+        
+    def go_back(self):
+        widget.setCurrentIndex(LOGIN_INDEX)
 
 os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
 app = QApplication(sys.argv)
@@ -142,6 +165,7 @@ app = QApplication(sys.argv)
 widget = QtWidgets.QStackedWidget()
 widget.addWidget(LoginPage())
 widget.addWidget(RegisterPage())
+widget.addWidget(BusStopPage())
 
 
 widget.setFixedSize(1280, 720)
