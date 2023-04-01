@@ -28,8 +28,3 @@ def findRouteCoordinatesList(route):
         for coordinate in points:
             coordinates.append((coordinate["Longitude"], coordinate["Latitude"]))
     return coordinates
-
-
-findBusStops(route)
-findRouteCoordinatesList(route)
-findBusStopCoordinates(route)
