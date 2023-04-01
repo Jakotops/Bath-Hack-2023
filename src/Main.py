@@ -1,7 +1,10 @@
+import folium
 import os, sys, re, Backend
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets, QtCore, QtGui
-from PyQt5.QtWidgets import QDialog, QApplication, QHeaderView,  QMessageBox, QCalendarWidget, QLabel, QPushButton, QButtonGroup, QTableWidget, QTableWidgetItem
+from PyQt5.QtWidgets import QDialog, QApplication, QHeaderView,  QMessageBox, QCalendarWidget, QLabel, QPushButton, QButtonGroup, QTableWidget, QTableWidgetItem, QVBoxLayout
+from PyQt5.QtWebEngineWidgets import QWebEngineView
+
 
 UI_FILE_PATH = "UI Files" #Directory in which the UI files are stored
 
@@ -121,6 +124,33 @@ class MainPage(QDialog):
         self.get_more_info.clicked.connect(self.go_to_bus_stop)
         self.U1.clicked.connect(self.show_U1_route)
         self.U2.clicked.connect(self.show_U2_route)
+        
+        self.webview = self.findChild(QWebEngineView, 'webview')
+        
+        self.webview.wheelEvent = lambda event: None
+        
+        m = folium.Map(location=[51.380001, -2.360000], zoom_start=13)
+        html = m._repr_html_()
+        html = f"""
+        <html>
+            <head>
+                <style>
+                    #map-container {{
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        height: 100%;
+                    }}
+                </style>
+            </head>
+            <body>
+                <div id="map-container">{html}</div>
+            </body>
+        </html>
+        """
+        
+        self.webview.setHtml(html)
+     
         
     def show_U1_route(self):
         print("Showing U1 route")

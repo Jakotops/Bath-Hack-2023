@@ -43,27 +43,6 @@
   <property name="styleSheet">
    <string notr="true">background-color: rgb(150, 150, 150);</string>
   </property>
-  <widget class="QFrame" name="frame">
-   <property name="geometry">
-    <rect>
-     <x>629</x>
-     <y>50</y>
-     <width>581</width>
-     <height>611</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(29, 30, 30);
-border: 2px solid;
-</string>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::StyledPanel</enum>
-   </property>
-   <property name="frameShadow">
-    <enum>QFrame::Raised</enum>
-   </property>
-  </widget>
   <widget class="QPushButton" name="U1">
    <property name="geometry">
     <rect>
@@ -255,7 +234,29 @@ font-size: 24px;</string>
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
+  <widget class="QWebEngineView" name="webview" native="true">
+   <property name="geometry">
+    <rect>
+     <x>590</x>
+     <y>150</y>
+     <width>661</width>
+     <height>411</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">
+background-color: rgb(200, 200, 200);</string>
+   </property>
+  </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QWebEngineView</class>
+   <extends>QWidget</extends>
+   <header location="global">QtWebEngineWidgets</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
