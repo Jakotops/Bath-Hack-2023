@@ -7,4 +7,5 @@ This is the Bath Hack Repo for team 13
 3. Create a shortcut to start or the desktop
 
 pip install PyQt5
+
 pip install PyQt5-tools
