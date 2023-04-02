@@ -9,6 +9,7 @@ def find_bus_locations():
     for bus in bus_data:
         coordinates = bus["coordinates"]
         service = bus["service"]["line_name"]
+
         heading = bus["heading"]
         bus_locations.append((service, coordinates, heading))
 
@@ -48,4 +49,3 @@ def findETA(bus_location, bus_stop_location):
         return str(int(duration/60))+" mins"
     except:
         return "error estimating ETA"
-
