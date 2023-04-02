@@ -1,9 +1,13 @@
+import Route
 import folium
-import os, sys, re, Backend
+import jinja2
+from jinja2 import Template
+import os, sys, Backend
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtWidgets import QDialog, QApplication, QHeaderView,  QMessageBox, QCalendarWidget, QLabel, QPushButton, QButtonGroup, QTableWidget, QTableWidgetItem, QVBoxLayout
 from PyQt5.QtWebEngineWidgets import QWebEngineView
+from folium.map import Marker
 
 
 UI_FILE_PATH = "UI Files" #Directory in which the UI files are stored
@@ -125,12 +129,38 @@ class MainPage(QDialog):
         self.U1.clicked.connect(self.show_U1_route)
         self.U2.clicked.connect(self.show_U2_route)
         
+        click_template = """{% macro script(this, kwargs) %}
+        var {{ this.get_name() }} = L.marker(
+            {{ this.location|tojson }},
+            {{ this.options|tojson }}
+            ).addTo({{ this._parent.get_name() }}).on('click', onClick);
+        {% endmacro %}"""
+
+        # Change template to custom template
+        Marker._template = Template(click_template)
+        
         self.webview = self.findChild(QWebEngineView, 'webview')
         
         self.webview.wheelEvent = lambda event: None
         
-        m = folium.Map(location=[51.380001, -2.360000], zoom_start=13)
-        html = m._repr_html_()
+        self.m = folium.Map(location=[51.380001, -2.360000], zoom_start=13)
+        
+        click_js = """function onClick(e) {
+        var point = e.latlng; alert(point)
+        }"""
+                 
+        e = folium.Element(click_js)
+        html = self.m.get_root()
+        html.script.get_root().render()
+        html.script._children[e.get_name()] = e
+        self.location = None
+        
+        self.load_map()
+        
+        
+     
+    def load_map(self):
+        html = self.m._repr_html_()
         html = f"""
         <html>
             <head>
@@ -150,13 +180,38 @@ class MainPage(QDialog):
         """
         
         self.webview.setHtml(html)
-     
+        
+    def clear_map(self):
+        self.m = None
+        self.m = folium.Map(location=[51.380001, -2.360000], zoom_start=13)
+        self.load_map()
+        
+    def genertate_route(self, route_id, line_color, stop_color):
+        bus_stops = Route.findBusStopCoordinates(route_id)
+        for bus_stop in bus_stops:
+            print(list(bus_stop))
+            marker = folium.Marker(list(bus_stop), popup= f'<p id="latlon">{bus_stop[0]}, {bus_stop[1]}</p>',  color=stop_color, icon=folium.Icon(icon="bus-simple", prefix='fa'))
+            marker.add_to(self.m)
+            marker.on('click', self.call)
+    
+            
+        bus_route = Route.findRouteCoordinatesList(route_id)
+        print(bus_route)
+        folium.PolyLine(bus_route, color=line_color, weight=2.5, opacity=1).add_to(self.m)
+        self.load_map()
+
+    def call(self, e):
+        print("clicked")
         
     def show_U1_route(self):
+        self.clear_map()
+        self.genertate_route(0, "#921c76", "purple")
         print("Showing U1 route")
         
-    
-    def show_U2_route(self):    
+    #Route 8 is the U2 route
+    def show_U2_route(self):  
+        self.clear_map()  
+        self.genertate_route(8, "#05326e", "blue")
         print("Showing U2 route")
         
     def go_to_bus_stop(self):
