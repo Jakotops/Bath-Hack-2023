@@ -46,8 +46,8 @@
   <widget class="QFrame" name="frame_3">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>120</y>
+     <x>10</x>
+     <y>100</y>
      <width>571</width>
      <height>501</height>
     </rect>
@@ -71,7 +71,9 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(211, 211, 211)</string>
+     <string notr="true">background-color: rgb(211, 211, 211);
+font-size: 20px
+</string>
     </property>
    </widget>
   </widget>
@@ -117,7 +119,29 @@ background-color:rgb(200, 200, 200)</string>
     <string>Go back to route map</string>
    </property>
   </widget>
+  <widget class="QWebEngineView" name="webview" native="true">
+   <property name="geometry">
+    <rect>
+     <x>600</x>
+     <y>160</y>
+     <width>661</width>
+     <height>411</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">
+background-color: rgb(200, 200, 200);</string>
+   </property>
+  </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QWebEngineView</class>
+   <extends>QWidget</extends>
+   <header location="global">QtWebEngineWidgets</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

@@ -18,7 +18,7 @@ def findBusStopCoordinates(bus_id):
     route = routes["TransXChange"]["RouteSections"]["RouteSection"][bus_id]["RouteLink"]
     for bus_stop in route:
         points = bus_stop["Track"]["Mapping"]["Location"]
-        coordinates.append((points[0]["Latitude"], points[0]["Longitude"]))
+        coordinates.append((bus_stop["From"]["StopPointRef"], points[0]["Latitude"], points[0]["Longitude"]))
     return coordinates
 
 
@@ -32,3 +32,5 @@ def findRouteCoordinatesList(bus_id):
         for coordinate in points:
             coordinates.append((float(coordinate["Latitude"]), float(coordinate["Longitude"])))
     return coordinates
+
+print(findBusStops())
