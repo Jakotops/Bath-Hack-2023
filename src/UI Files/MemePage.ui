@@ -43,87 +43,84 @@
   <property name="styleSheet">
    <string notr="true">background-color: rgb(150, 150, 150);</string>
   </property>
-  <widget class="QFrame" name="frame_3">
+  <widget class="QLabel" name="memePageTitle">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>100</y>
-     <width>571</width>
-     <height>501</height>
+     <x>410</x>
+     <y>20</y>
+     <width>411</width>
+     <height>91</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(202, 202, 195)</string>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::StyledPanel</enum>
-   </property>
-   <property name="frameShadow">
-    <enum>QFrame::Raised</enum>
-   </property>
-   <widget class="QTableWidget" name="Table">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>551</width>
-      <height>481</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(211, 211, 211);
-font-size: 20px
-</string>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QLabel" name="Title">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>40</y>
-     <width>1271</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">font-size: 35px; 
-font-weight: bold;
-color: white;
-</string>
+    <string notr="true">color: white;
+font-family:tahoma;
+text-align: center;
+font-size: 60px;
+font-weight: 1000;</string>
    </property>
    <property name="text">
-    <string>Here are our preditctions for stop PLACEHOLDER STOP</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
+    <string>Journey Page</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="Back_Button">
+  <widget class="QPushButton" name="endJourneyButton">
    <property name="geometry">
     <rect>
-     <x>180</x>
-     <y>630</y>
-     <width>281</width>
+     <x>400</x>
+     <y>590</y>
+     <width>491</width>
      <height>71</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font-size: 25px; 
-
-font-weight: bold;
+    <string notr="true">background-color: rgb(200,200,200);
+font-family: tahoma;
+font-size:36px;
+font-weight: 600;
 color: white;
-background-color:rgb(200, 200, 200)</string>
+</string>
    </property>
    <property name="text">
-    <string>Go back to route map</string>
+    <string>End Journey</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="img">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>130</y>
+     <width>271</width>
+     <height>471</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255)</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="img_2">
+   <property name="geometry">
+    <rect>
+     <x>990</x>
+     <y>130</y>
+     <width>271</width>
+     <height>481</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255)</string>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </widget>
   <widget class="QWebEngineView" name="webview" native="true">
    <property name="geometry">
     <rect>
-     <x>600</x>
-     <y>160</y>
+     <x>300</x>
+     <y>130</y>
      <width>661</width>
      <height>411</height>
     </rect>
@@ -131,26 +128,6 @@ background-color:rgb(200, 200, 200)</string>
    <property name="styleSheet">
     <string notr="true">
 background-color: rgb(200, 200, 200);</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="Start_Journey">
-   <property name="geometry">
-    <rect>
-     <x>800</x>
-     <y>620</y>
-     <width>281</width>
-     <height>71</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">font-size: 25px; 
-
-font-weight: bold;
-color: white;
-background-color:rgb(200, 200, 200)</string>
-   </property>
-   <property name="text">
-    <string>Start Journey</string>
    </property>
   </widget>
  </widget>
