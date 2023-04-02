@@ -3,12 +3,12 @@ import folium
 import os, sys, re, Backend, Live_Bus_Data, Personalized_Stats
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets, QtCore, QtGui
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QUrl
 from PyQt5.QtWidgets import QDialog, QApplication, QHeaderView,  QMessageBox, QCalendarWidget, QLabel, QPushButton, QButtonGroup, QTableWidget, QTableWidgetItem, QVBoxLayout
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from folium.map import Marker
-
-
+from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
+from PyQt5.QtGui import QIcon, QPixmap
 UI_FILE_PATH = "UI Files" #Directory in which the UI files are stored
 
 session_id = None
@@ -18,6 +18,7 @@ REGISTER_INDEX = 1
 MAIN_INDEX = 2
 BUS_STOP_INDEX = 3 # temporarily set to 2 for testing purposes
 STATS_INDEX = 4
+MEME_INDEX = 5
 
 """Displays warning messagebox to the scren
     @param title title of window
@@ -135,6 +136,7 @@ class MainPage(QDialog):
         self.show_all.clicked.connect(self.show_all_routes)
         self.buses.clicked.connect(self.show_buses)
         self.stats.clicked.connect(self.go_to_stats)
+        self
 
     
         
@@ -307,6 +309,10 @@ class BusStopPage(QDialog):
         self.webview = self.findChild(QWebEngineView, 'webview')
         
         self.Back_Button.clicked.connect(self.go_back)
+        self.Start_Journey.clicked.connect(self.start_journey)
+        
+    def start_journey(self):
+        widget.setCurrentIndex(MEME_INDEX)
     
     def recieve_data(self, data):
         strCoords = data[0]
@@ -408,6 +414,70 @@ class StatsPage(QDialog):
         
     def go_back(self):
         widget.setCurrentIndex(MAIN_INDEX)
+        
+class MemePage(QDialog):
+    def __init__(self):
+        # load the UI file
+        super(MemePage, self).__init__()
+        loadUi(os.path.join(UI_FILE_PATH, "MemePage.ui"), self)
+        self.setWindowTitle("Meme")
+        
+        self.img.setPixmap(QPixmap("burger.png"))
+        self.img.setScaledContents(True)
+        self.img_2.setPixmap(QPixmap("coke.png"))
+        self.img_2.setScaledContents(True)
+        
+        self.webview = self.findChild(QWebEngineView, 'webview')
+        
+        self.webview.wheelEvent = lambda event: None
+        
+        self.m = folium.Map(location=[51.380001, -2.360000], zoom_start=13)
+        self.show_U1_route()
+        
+        self.endJourneyButton.clicked.connect(self.go_back)
+
+    def genertate_route(self, route_id, line_color, stop_color):
+        bus_stops = Route.findBusStopCoordinates(route_id)
+        for bus_stop in bus_stops:
+            print(list(bus_stop))
+            marker = folium.Marker([bus_stop[1], bus_stop[2]], popup= f'<p id="latlon">{bus_stop[1]}, {bus_stop[2]}</p>',  color=stop_color, icon=folium.Icon(icon="bus-simple", prefix='fa'))
+            marker.add_to(self.m)
+    
+            
+        bus_route = Route.findRouteCoordinatesList(route_id)
+        print(bus_route)
+        folium.PolyLine(bus_route, color=line_color, weight=2.5, opacity=1).add_to(self.m)
+        self.load_map()
+        
+    def show_U1_route(self):
+        self.genertate_route(0, "#921c76", "purple")
+        print("Showing U1 route")
+        self.service = "U1"
+        
+    def load_map(self):
+        html = self.m._repr_html_()
+        html = f"""
+        <html>
+            <head>
+                <style>
+                    #map-container {{
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        height: 100%;
+                    }}
+                </style>
+            </head>
+            <body>
+                <div id="map-container">{html}</div>
+            </body>
+        </html>
+        """
+        
+        self.webview.setHtml(html)
+    
+    def go_back(self):
+        widget.setCurrentIndex(MAIN_INDEX)
     
     
 
@@ -426,6 +496,7 @@ widget.addWidget(RegisterPage())
 widget.addWidget(main_page)
 widget.addWidget(bus_stop_page)
 widget.addWidget(StatsPage())
+widget.addWidget(MemePage())
 
 main_page.send_signal.connect(bus_stop_page.recieve_data)
 
