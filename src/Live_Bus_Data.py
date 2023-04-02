@@ -9,7 +9,8 @@ def find_bus_locations():
     for bus in bus_data:
         coordinates = bus["coordinates"]
         service = bus["service"]["line_name"]
-        bus_locations.append((service, coordinates))
+        heading = bus["heading"]
+        bus_locations.append((service, coordinates, heading))
 
     return bus_locations
 
@@ -30,12 +31,13 @@ def find_bus_stop_data(bus_stop_id):
 
 def findETA(bus_location, bus_stop_location):
     # fetches driving time between 2 locations. locations in list format: [lat, long]
-    start_lat = str(bus_location[0])
-    start_long = str(bus_location[1])
-    end_lat = str(bus_stop_location[0])
-    end_long = str(bus_stop_location[1])
-    response = requests.get(f"https://api.mapbox.com/directions/v5/mapbox/driving/{start_lat}%2C{start_long}%3B{end_lat}%2C{end_long}?alternatives=false&geometries=geojson&overview=simplified&steps=false&access_token=pk.eyJ1Ijoiam0zMzIwIiwiYSI6ImNsZnlicWVoMzBmdW0zZW1tOHVuN3U1bngifQ.zOBybaJO3r99Ug4Cxpw55A")
-    duration = response.json()["routes"][0]["duration"]
-    return str(int(duration/60))+" mins"
-
-
+    try:
+        start_lat = str(bus_location[0])
+        start_long = str(bus_location[1])
+        end_lat = str(bus_stop_location[0])
+        end_long = str(bus_stop_location[1])
+        response = requests.get(f"https://api.mapbox.com/directions/v5/mapbox/driving/{start_lat}%2C{start_long}%3B{end_lat}%2C{end_long}?alternatives=false&geometries=geojson&overview=simplified&steps=false&access_token=pk.eyJ1Ijoiam0zMzIwIiwiYSI6ImNsZnlicWVoMzBmdW0zZW1tOHVuN3U1bngifQ.zOBybaJO3r99Ug4Cxpw55A")
+        duration = response.json()["routes"][0]["duration"]
+        return str(int(duration/60))+" mins"
+    except:
+        return "error estimating ETA"

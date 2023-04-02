@@ -55,7 +55,6 @@
    <property name="styleSheet">
     <string notr="true">font-size: 35px; 
 font-weight: bold;
-font-familty: Tahoma;
 color: white;
 </string>
    </property>
@@ -99,7 +98,7 @@ color: white;
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QLineEdit" name="Password">
+    <widget class="QLineEdit" name="Username">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -109,7 +108,9 @@ color: white;
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: white;</string>
+      <string notr="true">background-color: white;
+font-size: 25px;
+color: black</string>
      </property>
     </widget>
    </widget>
@@ -131,7 +132,7 @@ color: white;
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QLineEdit" name="RepeatPassword">
+    <widget class="QLineEdit" name="Password">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -141,7 +142,9 @@ color: white;
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: white;</string>
+      <string notr="true">background-color: white;
+font-size: 25px;
+color: black</string>
      </property>
     </widget>
    </widget>
@@ -157,7 +160,7 @@ color: white;
    </property>
    <property name="styleSheet">
     <string notr="true">font-size: 25px; 
-font-weight: bold;font-familty: Tahoma;
+font-weight: bold;
 color: white;
 background-color:rgb(200, 200, 200)</string>
    </property>
@@ -176,7 +179,8 @@ background-color:rgb(200, 200, 200)</string>
    </property>
    <property name="styleSheet">
     <string notr="true">font-size: 25px; 
-font-weight: bold;font-familty: Tahoma;
+
+font-weight: bold;
 color: white;
 background-color:rgb(200, 200, 200)</string>
    </property>
