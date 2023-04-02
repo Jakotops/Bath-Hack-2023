@@ -2,7 +2,7 @@ import Route
 import folium
 import jinja2
 from jinja2 import Template
-import os, sys, Backend
+import os, sys, re, Backend
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtWidgets import QDialog, QApplication, QHeaderView,  QMessageBox, QCalendarWidget, QLabel, QPushButton, QButtonGroup, QTableWidget, QTableWidgetItem, QVBoxLayout
@@ -118,42 +118,28 @@ class RegisterPage(QDialog):
         self.RepeatPassword.clear()  
     
 class MainPage(QDialog):
+    send_signal = QtCore.pyqtSignal(str)
+    
     def __init__(self):
         # load the UI file
         super(MainPage, self).__init__()
         loadUi(os.path.join(UI_FILE_PATH, "MainPage.ui"), self)
         self.setWindowTitle("Main Page")
         
+        self.Entry.setPlaceholderText("Enter Bus Stop coordinates")
+        
         self.logout_button.clicked.connect(self.logout)
         self.get_more_info.clicked.connect(self.go_to_bus_stop)
         self.U1.clicked.connect(self.show_U1_route)
         self.U2.clicked.connect(self.show_U2_route)
+        self.show_all.clicked.connect(self.show_all_routes)
         
-        click_template = """{% macro script(this, kwargs) %}
-        var {{ this.get_name() }} = L.marker(
-            {{ this.location|tojson }},
-            {{ this.options|tojson }}
-            ).addTo({{ this._parent.get_name() }}).on('click', onClick);
-        {% endmacro %}"""
 
-        # Change template to custom template
-        Marker._template = Template(click_template)
-        
         self.webview = self.findChild(QWebEngineView, 'webview')
         
         self.webview.wheelEvent = lambda event: None
         
         self.m = folium.Map(location=[51.380001, -2.360000], zoom_start=13)
-        
-        click_js = """function onClick(e) {
-        var point = e.latlng; alert(point)
-        }"""
-                 
-        e = folium.Element(click_js)
-        html = self.m.get_root()
-        html.script.get_root().render()
-        html.script._children[e.get_name()] = e
-        self.location = None
         
         self.load_map()
         
@@ -192,16 +178,12 @@ class MainPage(QDialog):
             print(list(bus_stop))
             marker = folium.Marker(list(bus_stop), popup= f'<p id="latlon">{bus_stop[0]}, {bus_stop[1]}</p>',  color=stop_color, icon=folium.Icon(icon="bus-simple", prefix='fa'))
             marker.add_to(self.m)
-            marker.on('click', self.call)
     
             
         bus_route = Route.findRouteCoordinatesList(route_id)
         print(bus_route)
         folium.PolyLine(bus_route, color=line_color, weight=2.5, opacity=1).add_to(self.m)
         self.load_map()
-
-    def call(self, e):
-        print("clicked")
         
     def show_U1_route(self):
         self.clear_map()
@@ -213,8 +195,36 @@ class MainPage(QDialog):
         self.clear_map()  
         self.genertate_route(8, "#05326e", "blue")
         print("Showing U2 route")
+    
+    def show_all_routes(self):
+        self.clear_map()
+        self.genertate_route(0, "#921c76", "purple")
+        self.genertate_route(8, "#05326e", "blue")
+        print("Showing all routes")
         
+        
+    def check_string_as_coordinates(self, input):
+        pattern = "^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)([,]\s*|\s+)[-+]?([1-9]?\d(\.\d+)?|1[0-7]\d(\.\d+)?|180(\.0+)?)$"
+        if re.match(pattern, input):
+            return True
+        else:
+            return False
+                
+    
     def go_to_bus_stop(self):
+        coords = self.Entry.text().strip()
+        if coords == "":
+            warning_messagebox("Please enter a bus stop")
+            return
+        if not self.check_string_as_coordinates(coords):
+            warning_messagebox("Please enter valid coordinates") 
+            return
+        print("Valid coordinates")
+        widget.setCurrentIndex(BUS_STOP_INDEX) 
+        self.send_signal.emit(coords)
+        
+        
+        
         widget.setCurrentIndex(BUS_STOP_INDEX)
         
     def logout(self):
@@ -278,6 +288,9 @@ class BusStopPage(QDialog):
         header.setSectionResizeMode(QHeaderView.Stretch)
         
         self.Back_Button.clicked.connect(self.go_back)
+    
+    def recieve_data(self, coords):
+        self.Title.setText(f"Here are our predictions for the stop at {coords}")
         
     def go_back(self):
         widget.setCurrentIndex(MAIN_INDEX)
@@ -287,11 +300,17 @@ app = QApplication(sys.argv)
 
 # adds the widgets to the stack
 widget = QtWidgets.QStackedWidget()
+
+main_page = MainPage()
+
+bus_stop_page = BusStopPage()
+
 widget.addWidget(LoginPage())
 widget.addWidget(RegisterPage())
-widget.addWidget(MainPage())
-widget.addWidget(BusStopPage())
+widget.addWidget(main_page)
+widget.addWidget(bus_stop_page)
 
+main_page.send_signal.connect(bus_stop_page.recieve_data)
 
 widget.setFixedSize(1280, 720)
 widget.show()

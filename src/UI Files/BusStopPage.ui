@@ -78,9 +78,9 @@
   <widget class="QLabel" name="Title">
    <property name="geometry">
     <rect>
-     <x>140</x>
+     <x>0</x>
      <y>40</y>
-     <width>981</width>
+     <width>1271</width>
      <height>41</height>
     </rect>
    </property>
@@ -92,6 +92,9 @@ color: white;
    </property>
    <property name="text">
     <string>Here are our preditctions for stop PLACEHOLDER STOP</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
   <widget class="QPushButton" name="Back_Button">
