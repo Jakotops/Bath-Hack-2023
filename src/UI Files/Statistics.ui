@@ -43,44 +43,6 @@
   <property name="styleSheet">
    <string notr="true">background-color: rgb(150, 150, 150);</string>
   </property>
-  <widget class="QLineEdit" name="main_title">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>40</y>
-     <width>671</width>
-     <height>101</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">font-family: tahoma;
-font-size: 60px;
-color: white;
-font-weight: 1200;</string>
-   </property>
-   <property name="text">
-    <string>Personal Statistics</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="lineEdit_2">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>150</y>
-     <width>671</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">font-size: 16px;
-font-family: tahoma;
-font-weight: 200px;
-color: white;</string>
-   </property>
-   <property name="text">
-    <string>View some interesting personal statistics from the last 7 days</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="totalTimeTitle">
    <property name="geometry">
     <rect>
@@ -310,6 +272,44 @@ font-weight: 800;</string>
    </property>
    <property name="text">
     <string>XX Trips</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="freqStopOn_2">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>70</y>
+     <width>571</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font-family: tahoma;
+font-size: 60px;
+color: white;
+font-weight: 1200;</string>
+   </property>
+   <property name="text">
+    <string>Personal Statistics</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="frequentStopOnTitle_2">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>150</y>
+     <width>511</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font-size: 16px;
+font-family: tahoma;
+font-weight:bold;
+color: white;</string>
+   </property>
+   <property name="text">
+    <string>View some interesting personal statistics from the last 7 days</string>
    </property>
   </widget>
  </widget>
