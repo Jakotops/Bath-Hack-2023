@@ -1,6 +1,42 @@
-import json
+import json, os
 from Live_Bus_Data import findETA
 import requests
+
+JSON_FILE_PATH = "StatsFolder"
+
+class Stats():
+    def __init__(self):
+        json_files = self.find_files(JSON_FILE_PATH) #Stores names of json files in Questions folder
+        self.json_list = []
+        
+        #Reads the json files and adds the objects to a list
+        for file in json_files:
+            self.json_list.append(self.read_json(f"{JSON_FILE_PATH}\{file}"))
+
+        if len(self.json_list) == 0:
+            #Raises error if there are no json files in the JSON_FILE_PATH directory
+            raise Exception("Error: No json files could not be found")
+        
+    def find_files(self, folder_path):
+        json_files = []
+        try: 
+            for path in os.listdir(folder_path):
+            # check if current path is a file and its a json file
+                if os.path.isfile(os.path.join(folder_path, path)) and ".json" in path:
+                    json_files.append(path)
+            return json_files
+        except FileNotFoundError:
+            #Raises exception if the specified directiory cannot be found
+            raise FileNotFoundError(f"Cannot find json folder: {folder_path}")
+
+    def read_json(self, file_path):
+        with open(file_path, "r") as json_file:
+            current_file = json.load(json_file)
+        return current_file
+    
+    def get_all_json_files(self):
+        return self.json_list[0]
+
 
 def Total_Time_Spent_Travelling(init_bus_stop, end_bus_stop):
     response = requests.get("https://maps.googleapis.com/maps/api/distancematrix/json?destinations="
@@ -73,5 +109,8 @@ def Most_Frequent_Bus_Off():
         json.dump(jsonr, outfile)
 
 
-Total_Distance_Travelled(('-2.324970', '51.379060'), ('-2.34360', '51.379960'))
-Total_Time_Spent_Travelling(('-2.324970', '51.379060'), ('-2.34360', '51.379960'))
+#Total_Distance_Travelled(('-2.324970', '51.379060'), ('-2.34360', '51.379960'))
+#Total_Time_Spent_Travelling(('-2.324970', '51.379060'), ('-2.34360', '51.379960'))
+
+stat = Stats()
+print(stat.get_all_json_files())

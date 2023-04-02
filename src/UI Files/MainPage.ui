@@ -307,6 +307,26 @@ color: white;</string>
  live Buses</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="stats">
+   <property name="geometry">
+    <rect>
+     <x>790</x>
+     <y>60</y>
+     <width>251</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font-family: tahoma;
+font-weight:800;
+font-size: 22px;
+background-color: rgb(200, 200, 200);
+color: white;</string>
+   </property>
+   <property name="text">
+    <string>View your statistics</string>
+   </property>
+  </widget>
  </widget>
  <customwidgets>
   <customwidget>

@@ -1,6 +1,6 @@
 import Route
 import folium
-import os, sys, re, Backend, Live_Bus_Data
+import os, sys, re, Backend, Live_Bus_Data, Personalized_Stats
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtCore import Qt
@@ -17,6 +17,7 @@ LOGIN_INDEX = 0
 REGISTER_INDEX = 1
 MAIN_INDEX = 2
 BUS_STOP_INDEX = 3 # temporarily set to 2 for testing purposes
+STATS_INDEX = 4
 
 """Displays warning messagebox to the scren
     @param title title of window
@@ -133,9 +134,10 @@ class MainPage(QDialog):
         self.U2.clicked.connect(self.show_U2_route)
         self.show_all.clicked.connect(self.show_all_routes)
         self.buses.clicked.connect(self.show_buses)
+        self.stats.clicked.connect(self.go_to_stats)
 
+    
         
-
         self.webview = self.findChild(QWebEngineView, 'webview')
         
         self.webview.wheelEvent = lambda event: None
@@ -145,7 +147,9 @@ class MainPage(QDialog):
         self.load_map()
         
         self.service = None
-        
+
+    def go_to_stats(self):
+        widget.setCurrentIndex(STATS_INDEX)
         
     def show_buses(self):
         self.clear_map()
@@ -383,6 +387,29 @@ class BusStopPage(QDialog):
         self.table.setRowCount(0)
         widget.setCurrentIndex(MAIN_INDEX)
         
+        
+class StatsPage(QDialog):
+    def __init__(self):
+        # load the UI file
+        super(StatsPage, self).__init__()
+        loadUi(os.path.join(UI_FILE_PATH, "Statistics.ui"), self)
+        self.setWindowTitle("Statistics")
+        
+        self.Back_Button.clicked.connect(self.go_back)
+        
+        self.statsDict = Personalized_Stats.Stats().get_all_json_files()
+        print(self.statsDict)
+        self.timeTravelled.setText(f"{self.statsDict['total_time']} minutes")
+        self.distanceTravelled.setText(f"{self.statsDict['total_distance']} meters")
+        self.numTrips.setText(f"{self.statsDict['accum_trips']} Trips")
+        self.freqStopOn.setText(f"Green Park")
+        self.freqStopOff.setText(f"University of Bath")
+        self.streak.setText(f"{self.statsDict['consecutive_days']} days")
+        
+    def go_back(self):
+        widget.setCurrentIndex(MAIN_INDEX)
+    
+    
 
 os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
 app = QApplication(sys.argv)
@@ -398,6 +425,7 @@ widget.addWidget(LoginPage())
 widget.addWidget(RegisterPage())
 widget.addWidget(main_page)
 widget.addWidget(bus_stop_page)
+widget.addWidget(StatsPage())
 
 main_page.send_signal.connect(bus_stop_page.recieve_data)
 

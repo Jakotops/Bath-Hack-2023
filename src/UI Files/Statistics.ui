@@ -312,6 +312,26 @@ color: white;</string>
     <string>View some interesting personal statistics from the last 7 days</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="Back_Button">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>660</y>
+     <width>281</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font-size: 25px; 
+
+font-weight: bold;
+color: white;
+background-color:rgb(200, 200, 200)</string>
+   </property>
+   <property name="text">
+    <string>Go back to route map</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>
