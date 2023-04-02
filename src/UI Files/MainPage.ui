@@ -87,7 +87,7 @@ color: white;
   <widget class="QPushButton" name="show_all">
    <property name="geometry">
     <rect>
-     <x>370</x>
+     <x>340</x>
      <y>120</y>
      <width>113</width>
      <height>61</height>
@@ -101,7 +101,8 @@ background-color: rgb(200, 200, 200);
 color: white;</string>
    </property>
    <property name="text">
-    <string>Show All</string>
+    <string>Show U1
+and U2</string>
    </property>
   </widget>
   <widget class="QPushButton" name="logout_button">
@@ -240,7 +241,7 @@ font-size: 24px;</string>
   <widget class="QWebEngineView" name="webview" native="true">
    <property name="geometry">
     <rect>
-     <x>590</x>
+     <x>600</x>
      <y>150</y>
      <width>661</width>
      <height>411</height>
@@ -249,16 +250,6 @@ font-size: 24px;</string>
    <property name="styleSheet">
     <string notr="true">
 background-color: rgb(200, 200, 200);</string>
-   </property>
-  </widget>
-  <widget class="QWidget" name="widget" native="true">
-   <property name="geometry">
-    <rect>
-     <x>650</x>
-     <y>40</y>
-     <width>120</width>
-     <height>80</height>
-    </rect>
    </property>
   </widget>
   <widget class="QFrame" name="frame_3">
@@ -294,6 +285,27 @@ font-size: 25px;
 color: black</string>
     </property>
    </widget>
+  </widget>
+  <widget class="QPushButton" name="buses">
+   <property name="geometry">
+    <rect>
+     <x>470</x>
+     <y>120</y>
+     <width>121</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font-family: tahoma;
+font-weight:800;
+font-size: 22px;
+background-color: rgb(200, 200, 200);
+color: white;</string>
+   </property>
+   <property name="text">
+    <string>Show all
+ live Buses</string>
+   </property>
   </widget>
  </widget>
  <customwidgets>
