@@ -46,9 +46,9 @@
   <widget class="QLabel" name="memePageTitle">
    <property name="geometry">
     <rect>
-     <x>440</x>
+     <x>410</x>
      <y>20</y>
-     <width>351</width>
+     <width>411</width>
      <height>91</height>
     </rect>
    </property>
@@ -60,7 +60,7 @@ font-size: 60px;
 font-weight: 1000;</string>
    </property>
    <property name="text">
-    <string>Meme Page</string>
+    <string>Journey Page</string>
    </property>
   </widget>
   <widget class="QPushButton" name="endJourneyButton">
