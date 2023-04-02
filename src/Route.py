@@ -32,5 +32,3 @@ def findRouteCoordinatesList(bus_id):
         for coordinate in points:
             coordinates.append((float(coordinate["Latitude"]), float(coordinate["Longitude"])))
     return coordinates
-
-print(findBusStops())
