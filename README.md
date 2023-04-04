@@ -4,7 +4,7 @@ This is the Bath Hack Repository for team 13
 
 https://devpost.com/software/second-bus
 
-# Bus Tracking App
+# Second Bus - Bus Tracking App
 
 ## Inspiration
 
